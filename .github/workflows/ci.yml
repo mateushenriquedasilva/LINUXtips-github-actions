@@ -125,7 +125,7 @@ jobs:
       - name: "Verificar health endpoint"
         run: |
           echo "Verificando health check..."
-          curl -f http://localhost:3000/health || exit 1
+          curl -f http://localhost:8080/health || exit 1
           echo "Health check passou!"
           
       - name: "Parar servidor"
@@ -215,7 +215,7 @@ jobs:
           echo "Notificando aplicação sobre a conclusão do workflow..."
           
           # Tentar notificar a aplicação local (se estiver rodando)
-          curl -X POST "http://localhost:3000/api/workflow-complete" \
+          curl -X POST "http://localhost:8080/api/workflow-complete" \
             -H "Content-Type: application/json" \
             -d '{
               "username": "${{ github.actor }}",
