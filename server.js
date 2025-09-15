@@ -5,7 +5,7 @@ const path = require('path');
 require('dotenv').config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 
 // Middlewares de segurança e configuração
 app.use(helmet({
@@ -183,6 +183,7 @@ app.post('/api/check-github-status', async (req, res) => {
     const apiUrl = `https://api.github.com/repos/${username}/${repository}/actions/runs?status=success&per_page=10`;
 
     const response = await fetch(apiUrl);
+    console.log(response);
     const data = await response.json();
 
     if (response.ok && data.workflow_runs) {
@@ -213,7 +214,7 @@ app.post('/api/check-github-status', async (req, res) => {
           console.log('Erro ao verificar artefatos:', error);
         }
       }
-
+      
       // Verificar se o repositório tem o nome exato (case insensitive)
       const validRepoNames = [
         'linuxtips-github-actions',
